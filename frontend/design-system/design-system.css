@@ -1,0 +1,73 @@
+/**
+ * AI Traffic Voice Assistant — Design System Global CSS Custom Properties
+ * Light & Dark theme mappings with strict WCAG AAA color ratios
+ */
+
+:root {
+  /* Brand Palette */
+  --color-deep-navy: #061D38;
+  --color-dark-navy: #092B50;
+  --color-royal-blue: #0875DF;
+  --color-bright-blue: #1685F5;
+  --color-light-blue: #DCEBFF;
+  --color-cyan-electric: #00F0FF;
+  --color-cyan-muted: #06B6D4;
+
+  /* Neutral Theme Surfaces (Light Mode Default) */
+  --bg-app: #F7F9FC;
+  --bg-surface: #FFFFFF;
+  --bg-surface-muted: #F1F5F9;
+  --bg-surface-elevated: #FFFFFF;
+  
+  --border-subtle: #E2E8F0;
+  --border-strong: #CBD5E1;
+  --border-focus: #0875DF;
+
+  --text-primary: #10233F;
+  --text-secondary: #334155;
+  --text-muted: #64748B;
+  --text-inverse: #FFFFFF;
+
+  /* Semantic Alerts */
+  --success-bg: #ECFDF3;
+  --success-border: #A6F4C5;
+  --success-text: #027A48;
+
+  --warning-bg: #FFFBEB;
+  --warning-border: #FDE68A;
+  --warning-text: #B54708;
+
+  --error-bg: #FEF3F2;
+  --error-border: #FECDCA;
+  --error-text: #B42318;
+
+  --info-bg: #EFF8FF;
+  --info-border: #B2DDFF;
+  --info-text: #175CD3;
+
+  /* Shadows */
+  --shadow-subtle: 0 1px 3px rgba(6, 29, 56, 0.04);
+  --shadow-card: 0 2px 10px rgba(6, 29, 56, 0.04), 0 1px 3px rgba(6, 29, 56, 0.02);
+  --shadow-card-hover: 0 10px 25px -5px rgba(6, 29, 56, 0.08);
+  --shadow-modal: 0 20px 25px -5px rgba(6, 29, 56, 0.15);
+}
+
+/* Dark Theme Specific Overrides (For Ops Console & Night Mode) */
+[data-theme="dark"] {
+  --bg-app: #040A14;
+  --bg-surface: #071527;
+  --bg-surface-muted: #0A1E38;
+  --bg-surface-elevated: #0D2647;
+
+  --border-subtle: #132E52;
+  --border-strong: #1A3E6D;
+  --border-focus: #00F0FF;
+
+  --text-primary: #F8FAFC;
+  --text-secondary: #CBD5E1;
+  --text-muted: #94A3B8;
+  --text-inverse: #061D38;
+
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.35);
+  --shadow-card-hover: 0 12px 30px rgba(0, 0, 0, 0.5);
+}

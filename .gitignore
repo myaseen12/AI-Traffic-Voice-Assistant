@@ -1,0 +1,129 @@
+# ==============================================================================
+# GITIGNORE: AI TRAFFIC VOICE ASSISTANT (CLEAN MONOREPO CONFIGURATION)
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# 1. Environment & Secret Credentials (CRITICAL - NEVER COMMIT SECRETS)
+# ------------------------------------------------------------------------------
+.env
+.env.*
+!.env.example
+backend/.env
+backend/.env.*
+!backend/.env.example
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+!frontend/.env.example
+*.pem
+*.key
+*.cert
+secrets.json
+
+# ------------------------------------------------------------------------------
+# 2. Node & Frontend Next.js Build Outputs
+# ------------------------------------------------------------------------------
+node_modules/
+frontend/node_modules/
+.next/
+frontend/.next/
+out/
+frontend/out/
+build/
+frontend/build/
+.npm
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.turbo
+
+# ------------------------------------------------------------------------------
+# 3. Python Virtual Environments & Bytecode
+# ------------------------------------------------------------------------------
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+backend/venv/
+backend/env/
+backend/ENV/
+.venv/
+venv/
+env/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# ------------------------------------------------------------------------------
+# 4. Testing, Coverage & Playwright Artifacts
+# ------------------------------------------------------------------------------
+.pytest_cache/
+backend/.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+*.cover
+*.py,cover
+test-results/
+frontend/test-results/
+playwright-report/
+frontend/playwright-report/
+blob-report/
+playwright/.cache/
+
+# ------------------------------------------------------------------------------
+# 5. Local Databases, Vectors & Ephemeral Audio Caches
+# ------------------------------------------------------------------------------
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+traffic_assistant.db
+backend/traffic_assistant.db
+backend/temp/
+backend/audio_cache/
+backend/uploads/
+chroma_db/
+backend/chroma_db/
+*.wav
+*.mp3
+*.ogg
+*.webm
+*.flac
+
+# ------------------------------------------------------------------------------
+# 6. Operating System & Code Editors
+# ------------------------------------------------------------------------------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+.idea/
+.vscode/
+*.sublime-workspace
+*.sublime-project
+*.swp
+*.swo
+*~

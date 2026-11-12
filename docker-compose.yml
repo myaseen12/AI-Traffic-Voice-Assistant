@@ -1,0 +1,87 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: traffic_voice_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-traffic_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-traffic_secure_pass_2026}
+      POSTGRES_DB: ${POSTGRES_DB:-traffic_assistant_db}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-traffic_user} -d ${POSTGRES_DB:-traffic_assistant_db}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: traffic_voice_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.backend
+    container_name: traffic_voice_backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - APP_ENV=${APP_ENV:-production}
+      - DEBUG=${DEBUG:-False}
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-traffic_user}:${POSTGRES_PASSWORD:-traffic_secure_pass_2026}@postgres:5432/${POSTGRES_DB:-traffic_assistant_db}
+      - SECRET_KEY=${SECRET_KEY:-supersecret-traffic-voice-assistant-jwt-key-production-2026}
+      - ALLOWED_ORIGINS=${ALLOWED_ORIGINS:-http://localhost:3000,http://127.0.0.1:3000}
+      - LLM_PROVIDER=${LLM_PROVIDER:-llama3}
+      - LLAMA3_MODEL=${LLAMA3_MODEL:-llama-3-8b-instruct}
+      - LLAMA3_API_BASE=${LLAMA3_API_BASE:-http://localhost:11434/v1}
+      - LLAMA3_API_KEY=${LLAMA3_API_KEY:-}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+      - WHISPER_PROVIDER=${WHISPER_PROVIDER:-auto}
+      - TTS_ENGINE=${TTS_ENGINE:-gtts}
+      - OTP_MODE=${OTP_MODE:-production}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - chroma_data:/app/chroma_db
+      - audio_cache:/app/audio_cache
+
+  frontend:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.frontend
+      args:
+        - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-http://localhost:8000/api/v1}
+    container_name: traffic_voice_frontend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-http://localhost:8000/api/v1}
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
+  redis_data:
+  chroma_data:
+  audio_cache:

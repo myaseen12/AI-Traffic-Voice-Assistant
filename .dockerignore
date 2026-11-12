@@ -1,0 +1,50 @@
+# Version Control
+.git
+.gitignore
+
+# Node & Frontend Build Artifacts
+frontend/node_modules
+frontend/.next
+frontend/out
+frontend/build
+frontend/test-results
+frontend/playwright-report
+
+# Python Virtual Environments & Caches
+**/__pycache__
+**/*.py[cod]
+**/*$py.class
+**/*.so
+.Python
+backend/venv
+backend/env
+.venv
+venv
+.pytest_cache
+.coverage
+htmlcov
+
+# Environment & Secrets (NEVER INCLUDE IN DOCKER IMAGES)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Local Databases & Media Caches
+*.db
+*.sqlite
+*.sqlite3
+traffic_assistant.db
+backend/traffic_assistant.db
+backend/temp
+backend/audio_cache
+backend/uploads
+
+# OS & Editor Files
+.DS_Store
+Thumbs.db
+.vscode
+.idea
+*.swp
+*.swo

@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <defs>
+    <linearGradient id="shieldGradLight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0E2F54" />
+      <stop offset="100%" stop-color="#061D38" />
+    </linearGradient>
+    <linearGradient id="micGradLight" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1685F5" />
+      <stop offset="100%" stop-color="#0875DF" />
+    </linearGradient>
+  </defs>
+
+  <!-- Outer Deep Navy Shield Outline -->
+  <path
+    d="M60 12 L96 24 C96 66 78 96 60 108 C42 96 24 66 24 24 Z"
+    fill="url(#shieldGradLight)"
+    stroke="#0875DF"
+    stroke-width="4"
+    stroke-linejoin="round"
+  />
+
+  <!-- Inner Cyan Glow Shield Outline -->
+  <path
+    d="M60 17 L91 27 C91 63 75 91 60 101 C45 91 29 63 29 27 Z"
+    fill="none"
+    stroke="#00F0FF"
+    stroke-width="2"
+    stroke-linejoin="round"
+  />
+
+  <!-- Microphone Capsule -->
+  <rect
+    x="49"
+    y="34"
+    width="22"
+    height="36"
+    rx="11"
+    fill="url(#micGradLight)"
+  />
+
+  <!-- Horizontal Heartbeat / Audio Pulse Line across Mic -->
+  <path
+    d="M38 52 L50 52 L54 44 L60 62 L66 44 L70 52 L82 52"
+    stroke="#FFFFFF"
+    stroke-width="3"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+
+  <!-- U-shaped Mic Cradle -->
+  <path
+    d="M42 48 C42 66 78 66 78 48"
+    fill="none"
+    stroke="#1685F5"
+    stroke-width="4"
+    stroke-linecap="round"
+  />
+
+  <!-- Vertical Stem -->
+  <line
+    x1="60"
+    y1="67"
+    x2="60"
+    y2="82"
+    stroke="#1685F5"
+    stroke-width="4.5"
+    stroke-linecap="round"
+  />
+
+  <!-- Base Pedestal -->
+  <line
+    x1="48"
+    y1="82"
+    x2="72"
+    y2="82"
+    stroke="#1685F5"
+    stroke-width="4.5"
+    stroke-linecap="round"
+  />
+</svg>

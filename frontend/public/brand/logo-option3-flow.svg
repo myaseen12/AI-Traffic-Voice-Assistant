@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <radialGradient id="op3Bg" cx="50%" cy="30%" r="75%">
+      <stop offset="0%" stop-color="#0E1E45" />
+      <stop offset="100%" stop-color="#050B18" />
+    </radialGradient>
+    <linearGradient id="flowCyan" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00F0FF" />
+      <stop offset="100%" stop-color="#0284C7" />
+    </linearGradient>
+    <linearGradient id="flowRoyal" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3B82F6" />
+      <stop offset="100%" stop-color="#1D4ED8" />
+    </linearGradient>
+  </defs>
+
+  <rect width="512" height="512" rx="112" fill="url(#op3Bg)" />
+
+  <!-- Dual Curving Highway Ribbons forming speech / voice acoustic resonance -->
+  <!-- Left Ribbon (Ascending Highway) -->
+  <path d="M 120 380 C 120 200 240 100 360 100 C 400 100 420 120 400 150 C 320 160 210 240 210 380 Z" 
+        fill="url(#flowRoyal)" 
+        opacity="0.9" />
+
+  <!-- Right Ribbon (Descending Highway loop) -->
+  <path d="M 392 132 C 392 312 272 412 152 412 C 112 412 92 392 112 362 C 192 352 302 272 302 132 Z" 
+        fill="url(#flowCyan)" 
+        opacity="0.95" />
+
+  <!-- Central Acoustic Audio Pulse Bar Core -->
+  <g transform="translate(256, 256)">
+    <line x1="-50" y1="0" x2="-50" y2="0" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" />
+    <line x1="-25" y1="-28" x2="-25" y2="28" stroke="#00F0FF" stroke-width="8" stroke-linecap="round" />
+    <line x1="0" y1="-56" x2="0" y2="56" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" />
+    <line x1="25" y1="-28" x2="25" y2="28" stroke="#00F0FF" stroke-width="8" stroke-linecap="round" />
+    <line x1="50" y1="0" x2="50" y2="0" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" />
+  </g>
+</svg>
