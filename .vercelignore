@@ -1,0 +1,14 @@
+# Exclude backend, mobile, caches and build artifacts from Vercel deployment
+backend/
+mobile/
+.git/
+.gradle/
+*.db
+*.sqlite*
+venv/
+node_modules/
+.next/
+dist/
+.pytest_cache/
+htmlcov/
+*.log
