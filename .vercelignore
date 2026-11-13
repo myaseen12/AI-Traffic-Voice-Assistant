@@ -6,8 +6,10 @@ mobile/
 *.db
 *.sqlite*
 venv/
-node_modules/
-.next/
+**/node_modules/
+**/.next/
+frontend/node_modules/
+frontend/.next/
 dist/
 .pytest_cache/
 htmlcov/

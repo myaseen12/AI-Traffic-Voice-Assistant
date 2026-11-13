@@ -32,8 +32,12 @@ export async function fetchApi(endpoint, options = {}) {
       headers,
     });
   } catch (netErr) {
+    const isLocal = BASE_URL.includes("localhost") || BASE_URL.includes("127.0.0.1");
+    const tip = isLocal
+      ? "Please ensure your local FastAPI backend daemon is running on port 8000."
+      : "The traffic verification service is currently undergoing routine synchronization or experiencing high network traffic. Please check your internet connection and try again.";
     throw new Error(
-      `Unable to connect to Central Traffic Server at ${BASE_URL}. Please ensure the backend is running.`
+      `Unable to connect to Central Traffic Server (${BASE_URL}). ${tip}`
     );
   }
 

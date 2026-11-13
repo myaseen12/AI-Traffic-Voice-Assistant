@@ -1,0 +1,9 @@
+venv/
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+tests/
+traffic_assistant.db
+audio_cache/
+chroma_db/

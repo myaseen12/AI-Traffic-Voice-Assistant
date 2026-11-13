@@ -1,4 +1,5 @@
 import enum
+from typing import Optional
 from datetime import datetime, timezone
 from sqlalchemy import Column, Integer, String, Numeric, DateTime, Enum, ForeignKey, Text, Boolean, func
 from sqlalchemy.orm import relationship, validates, synonym

@@ -40,15 +40,18 @@ async def lifespan(app: FastAPI):
     - Verifies database schema tables
     - Seeds default verified violations and demonstration fixtures
     """
-    Base.metadata.create_all(bind=engine)
-    db = SessionLocal()
     try:
-        from app.database.seeds import run_seed
-        run_seed(db)
-    except Exception as e:
-        print(f"[Startup Warning] Seed initialization note: {e}")
-    finally:
-        db.close()
+        Base.metadata.create_all(bind=engine)
+        db = SessionLocal()
+        try:
+            from app.database.seeds import run_seed
+            run_seed(db)
+        except Exception as e:
+            print(f"[Startup Warning] Seed initialization note: {e}")
+        finally:
+            db.close()
+    except Exception as db_init_err:
+        print(f"[Startup Warning] Database initialization warning: {db_init_err}")
     yield
 
 # OpenAPI Tags Metadata for Swagger Documentation

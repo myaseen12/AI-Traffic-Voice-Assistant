@@ -1,3 +1,4 @@
+import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from app.config import settings
@@ -6,6 +7,10 @@ from app.config import settings
 database_url = settings.DATABASE_URL
 if database_url.startswith("postgres://"):
     database_url = database_url.replace("postgres://", "postgresql://", 1)
+
+# In serverless environments (Vercel, AWS Lambda), filesystem is read-only except /tmp
+if database_url.startswith("sqlite") and (os.environ.get("VERCEL") or os.environ.get("AWS_LAMBDA_FUNCTION_NAME")):
+    database_url = "sqlite:////tmp/traffic_assistant.db"
 
 engine_kwargs = {
     "echo": False, # Disabled raw query console echoing to support UTF-8 multilingual text safely on Windows

@@ -413,7 +413,12 @@ class ChromaRAGService:
 
     COLLECTION_NAME = "pakistan_traffic_laws"
 
-    def __init__(self, persist_directory: str = "./data/chroma_db"):
+    def __init__(self, persist_directory: str = None):
+        if persist_directory is None:
+            if os.environ.get("VERCEL") or os.environ.get("AWS_LAMBDA_FUNCTION_NAME"):
+                persist_directory = "/tmp/chroma_db"
+            else:
+                persist_directory = "./data/chroma_db"
         self.persist_directory = persist_directory
         self.embedding_fn = RobustEmbeddingFunction()
         self.chunker = SemanticStatuteChunker()
@@ -434,8 +439,18 @@ class ChromaRAGService:
             if self._collection.count() == 0:
                 self.ingest_verified_rules()
         except Exception as e:
-            logger.error(f"Error initializing ChromaDB persistent collection: {e}")
-            self._collection = None
+            logger.warning(f"ChromaDB persistent client fallback to EphemeralClient: {e}")
+            try:
+                self._client = chromadb.EphemeralClient()
+                self._collection = self._client.get_or_create_collection(
+                    name=self.COLLECTION_NAME,
+                    embedding_function=self.embedding_fn
+                )
+                if self._collection.count() == 0:
+                    self.ingest_verified_rules()
+            except Exception as eph_err:
+                logger.error(f"Error initializing ChromaDB EphemeralClient: {eph_err}")
+                self._collection = None
 
     def ingest_verified_rules(self) -> int:
         """

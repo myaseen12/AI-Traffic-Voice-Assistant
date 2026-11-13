@@ -53,27 +53,15 @@ export default function HomePage() {
   };
 
   // Simulate QR Code Scanner
-  const handleSimulateQRScan = async (challanCode = "PK-2024-883921") => {
+  const handleSimulateQRScan = async (challanCode = "ICT-2024-551203") => {
     setLoading(true);
     setQrModalOpen(false);
     try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api/v1"}/challans/qr-decode`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ qr_data: challanCode }),
-        }
-      );
-      const data = await res.json();
-      if (res.ok) {
-        setSearchResults([data]);
-        selectChallan(data);
-      } else {
-        setSearchError(data.detail || "QR code decoding failed");
-      }
+      const data = await challanService.decodeQr(challanCode);
+      setSearchResults([data]);
+      selectChallan(data);
     } catch (e) {
-      setSearchError("Could not connect to verification server");
+      setSearchError(e.message || "QR code decoding failed");
     } finally {
       setLoading(false);
     }
