@@ -1,3 +1,0 @@
-"""
-FastAPI Core Application Package.
-"""
