@@ -1,11 +1,11 @@
-# Exclude backend, mobile, caches and build artifacts from Vercel deployment
-backend/
+# Exclude mobile, local caches, databases, virtual environments, and build artifacts
 mobile/
 .git/
 .gradle/
 *.db
 *.sqlite*
 venv/
+.venv/
 **/node_modules/
 **/.next/
 frontend/node_modules/
