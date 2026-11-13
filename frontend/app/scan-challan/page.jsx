@@ -163,8 +163,8 @@ export default function ScanChallanPage() {
       }
     }
 
-    // 3. Match Standard Pakistani Citation Reference (e.g. PK-2024-883921)
-    const challanMatch = text.match(/PK-\d{4}-\d{6}/i);
+    // 3. Match Standard Pakistani Citation Reference (e.g. PK-2024-883921, ICT-2024-551203, LHR-2024-109482)
+    const challanMatch = text.match(/(PK|ICT|LHR|KHI|RWL|PEW|QTA)-\d{4}-\d{6}/i);
     if (challanMatch) {
       return { isValid: true, sanitizedCode: challanMatch[0].toUpperCase() };
     }
@@ -712,14 +712,14 @@ export default function ScanChallanPage() {
 
               <button
                 type="button"
-                onClick={() => handleQrPayload("PK-2024-774102")}
+                onClick={() => handleQrPayload("ICT-2024-551203")}
                 className="p-3 bg-slate-50 hover:bg-blue-50/50 rounded-xl border border-slate-200 hover:border-royalBlue text-left transition group"
               >
                 <div className="font-mono font-bold text-royalBlue group-hover:text-brightBlue">
-                  PK-2024-774102
+                  ICT-2024-551203
                 </div>
                 <div className="text-[11px] text-mutedGrey mt-0.5">
-                  Riding without Helmet (Sec 89-A) • Rs. 2,000
+                  Over-Speeding (Sec 112) • Rs. 2,500
                 </div>
               </button>
             </div>

@@ -28,27 +28,36 @@ export default function FAQPage() {
   ];
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-16">
-      <div className="text-center mb-12">
-        <div className="inline-block bg-royal-700/40 border border-royal-500/40 text-cyan-neon font-semibold text-xs px-3 py-1 rounded-full mb-3">
+    <div className="max-w-3xl mx-auto px-4 py-12 sm:py-16">
+      <div className="text-center mb-10 sm:mb-12">
+        <div className="inline-block bg-lightBlue border border-subtleBorder text-deepNavy font-bold text-xs px-3.5 py-1 rounded-full mb-3 shadow-2xs">
           Help & Answers
         </div>
-        <h1 className="text-3xl font-extrabold text-white mb-2">Frequently Asked Questions</h1>
-        <p className="text-xs sm:text-sm text-slate-400">Common questions about Pakistani traffic rules, fines, and voice assistant features.</p>
+        <h1 className="text-3xl sm:text-4xl font-black text-deepNavy tracking-tight mb-2">
+          Frequently Asked Questions
+        </h1>
+        <p className="text-xs sm:text-sm text-bodyDark max-w-lg mx-auto">
+          Common questions about Pakistani traffic rules, statutory fines, and voice assistant features.
+        </p>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-3.5">
         {faqs.map((faq, idx) => (
-          <div key={idx} className="glass-card rounded-2xl overflow-hidden border border-slate-700/80 shadow-md">
+          <div
+            key={idx}
+            className="bg-white rounded-2xl overflow-hidden border border-cardBorder shadow-subtle hover:border-royalBlue/40 transition-all"
+          >
             <button
               onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
-              className="w-full text-left p-5 flex items-center justify-between font-bold text-xs sm:text-sm text-white hover:text-cyan-neon transition"
+              className="w-full text-left p-4 sm:p-5 flex items-center justify-between font-bold text-xs sm:text-sm text-deepNavy hover:text-royalBlue transition"
             >
-              <span>{faq.q}</span>
-              <span className="text-cyan-neon text-lg ml-2">{openIndex === idx ? "−" : "+"}</span>
+              <span className="pr-2">{faq.q}</span>
+              <span className="text-royalBlue text-xl font-bold ml-2 shrink-0">
+                {openIndex === idx ? "−" : "+"}
+              </span>
             </button>
             {openIndex === idx && (
-              <div className="px-5 pb-5 text-xs text-slate-300 leading-relaxed border-t border-slate-800 pt-3">
+              <div className="px-4 sm:px-5 pb-5 text-xs sm:text-sm text-bodyDark leading-relaxed border-t border-cardBorder pt-3.5 bg-[#F8FAFC]">
                 {faq.a}
               </div>
             )}
