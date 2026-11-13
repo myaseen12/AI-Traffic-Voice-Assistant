@@ -49,28 +49,39 @@ export default function WorkflowStepper({
   ];
 
   return (
-    <div className="w-full bg-navy-950/80 border border-slate-800 rounded-2xl p-3.5 mb-4 shadow-lg backdrop-blur-md transition-all">
+    <div className="w-full bg-white border border-cardBorder rounded-2xl p-3.5 sm:p-4 mb-4 shadow-subtle transition-all">
       {/* Header bar with toggle */}
-      <div className="flex items-center justify-between text-xs cursor-pointer select-none" onClick={() => setIsExpanded(!isExpanded)}>
-        <div className="flex items-center space-x-2 rtl:space-x-reverse">
-          <span className="w-2 h-2 rounded-full bg-cyan-neon animate-ping" />
-          <span className="font-bold text-white tracking-wide flex items-center gap-1.5">
+      <div
+        className="flex items-center justify-between text-xs cursor-pointer select-none gap-2 flex-wrap sm:flex-nowrap"
+        onClick={() => setIsExpanded(!isExpanded)}
+        role="button"
+        tabIndex={0}
+        aria-expanded={isExpanded}
+        aria-label="Toggle AI Traffic Intelligence Pipeline details"
+        onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setIsExpanded(!isExpanded); }}
+      >
+        <div className="flex items-center space-x-2 rtl:space-x-reverse flex-wrap gap-y-1">
+          <span className="w-2.5 h-2.5 rounded-full bg-royalBlue shrink-0" />
+          <span className="font-bold text-deepNavy text-xs sm:text-sm tracking-tight flex items-center gap-2 flex-wrap">
             <span>AI Traffic Intelligence Pipeline</span>
-            <span className="text-[10px] text-cyan-neon bg-cyan-950 px-2 py-0.5 rounded-full border border-cyan- neon/30 font-mono">
+            <span className="text-[10px] sm:text-[11px] text-deepNavy bg-lightBlue px-2.5 py-0.5 rounded-full border border-subtleBorder font-medium">
               Whisper • MVO 1965 • Llama 3 • Coqui TTS
             </span>
           </span>
         </div>
 
-        <div className="flex items-center space-x-2 rtl:space-x-reverse text-slate-400 hover:text-white transition">
-          <span className="text-[11px] hidden sm:inline">
+        <div className="flex items-center space-x-2 rtl:space-x-reverse text-mutedGrey hover:text-deepNavy transition shrink-0 ml-auto">
+          <span className="text-[11px] font-medium hidden sm:inline">
             {isProcessing ? (
-              <span className="text-cyan-neon font-bold animate-pulse">● Processing Pipeline Step {activeStep}/5...</span>
+              <span className="text-royalBlue font-bold animate-pulse">● Processing Pipeline Step {activeStep}/5...</span>
             ) : (
               "Pipeline Architecture"
             )}
           </span>
-          <span className="text-xs transition-transform duration-200" style={{ transform: isExpanded ? "rotate(180deg)" : "rotate(0deg)" }}>
+          <span
+            className="text-xs font-bold text-royalBlue transition-transform duration-200"
+            style={{ transform: isExpanded ? "rotate(180deg)" : "rotate(0deg)" }}
+          >
             ▼
           </span>
         </div>
@@ -78,8 +89,8 @@ export default function WorkflowStepper({
 
       {/* Expanded Workflow Stepper View */}
       {isExpanded && (
-        <div className="mt-3.5 pt-3 border-t border-slate-800/80 animate-in fade-in duration-200">
-          <div className="grid grid-cols-1 sm:grid-cols-5 gap-2">
+        <div className="mt-3.5 pt-3 border-t border-cardBorder animate-in fade-in duration-200">
+          <div className="grid grid-cols-1 sm:grid-cols-5 gap-2.5">
             {steps.map((s, idx) => {
               const isCurrent = isProcessing && activeStep === s.id;
               const isCompleted = activeStep > s.id;
@@ -89,27 +100,27 @@ export default function WorkflowStepper({
                   key={s.id}
                   className={`p-2.5 rounded-xl border text-xs transition-all relative ${
                     isCurrent
-                      ? "bg-cyan-950/80 border-cyan-neon text-white shadow-glow-cyan"
+                      ? "bg-lightBlue border-royalBlue shadow-sm"
                       : isCompleted
-                      ? "bg-navy-900/90 border-emerald-600/70 text-slate-200"
-                      : "bg-navy-900/40 border-slate-800 text-slate-400"
+                      ? "bg-[#F8FAFC] border-royalBlue/40"
+                      : "bg-white border-cardBorder"
                   }`}
                 >
-                  <div className="flex items-center justify-between mb-1">
-                    <span className="text-sm">{s.icon}</span>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="text-base">{s.icon}</span>
                     {isCurrent ? (
-                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-neon animate-ping" />
+                      <span className="w-2 h-2 rounded-full bg-royalBlue animate-ping" />
                     ) : isCompleted ? (
-                      <span className="text-emerald-400 font-bold text-[10px]">✓</span>
+                      <span className="text-royalBlue font-bold text-xs">✓</span>
                     ) : (
-                      <span className="text-slate-600 font-mono text-[9px]">{idx + 1}</span>
+                      <span className="text-mutedGrey font-mono text-[10px] font-semibold">{idx + 1}</span>
                     )}
                   </div>
-                  <div className="font-bold text-[11px] text-white truncate">{s.title}</div>
-                  <div className="text-[10px] text-slate-400 leading-tight mt-0.5 line-clamp-2">
+                  <div className="font-bold text-xs text-deepNavy truncate">{s.title}</div>
+                  <div className="text-[11px] text-bodyDark leading-snug mt-1 line-clamp-2">
                     {s.desc}
                   </div>
-                  <div className="mt-1.5 text-[9px] text-cyan-neon font-mono truncate bg-navy-950/90 px-1 py-0.5 rounded border border-slate-800">
+                  <div className="mt-2 text-[9px] text-royalBlue font-mono font-medium truncate bg-white px-1.5 py-0.5 rounded border border-cardBorder">
                     {s.tech}
                   </div>
                 </div>
@@ -117,9 +128,9 @@ export default function WorkflowStepper({
             })}
           </div>
 
-          <div className="mt-2 text-[10px] text-slate-400 flex items-center justify-between px-1">
+          <div className="mt-3 text-[11px] text-mutedGrey flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1.5 px-1 font-medium border-t border-cardBorder/60 pt-2">
             <span>🛡️ Legal Grounding: Motor Vehicles Ordinance 1965 & National Highway Safety Ordinance 2000</span>
-            <span>Zero Statutory Hallucination Enforced</span>
+            <span className="text-deepNavy font-semibold">Zero Statutory Hallucination Enforced</span>
           </div>
         </div>
       )}

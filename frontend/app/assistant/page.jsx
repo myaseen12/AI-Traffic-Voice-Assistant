@@ -426,11 +426,11 @@ function AssistantContent() {
   }, [language]);
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-6 sm:py-8" dir={dir} role="main" aria-label="AI Traffic Voice Assistant Studio">
+    <div className="max-w-4xl mx-auto px-3 sm:px-4 py-5 sm:py-8" dir={dir} role="main" aria-label="AI Traffic Voice Assistant Studio">
       
       {/* 1. STUDIO HEADER BAR */}
-      <header className="glass-card rounded-2xl p-4 sm:p-6 shadow-xl mb-4 sm:mb-6 border border-cyan-neon/30 bg-navy-950/80 backdrop-blur-md">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+      <header className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm mb-4 sm:mb-5 border border-cardBorder">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           
           {/* Logo & Assistant Identity */}
           <div className="flex items-center space-x-3 rtl:space-x-reverse w-full md:w-auto">
@@ -438,34 +438,48 @@ function AssistantContent() {
             <img
               src="/images/shield-logo.png"
               alt="National Traffic Shield"
-              className="w-11 h-11 object-contain drop-shadow-[0_0_12px_rgba(0,240,255,0.4)]"
+              className="w-11 h-11 object-contain shrink-0 drop-shadow-sm"
             />
             <div>
               <div className="flex items-center gap-2 flex-wrap">
-                <h1 className="text-xl font-extrabold text-white tracking-tight">
+                <h1 className="text-xl sm:text-2xl font-black text-deepNavy tracking-tight">
                   AI Traffic Voice Assistant
                 </h1>
-                <span className="text-[10px] text-cyan-neon bg-cyan-950/90 px-2.5 py-0.5 rounded-full border border-cyan-neon/40 font-mono tracking-wider">
-                  Whisper STT • Llama 3 • Coqui TTS
+              </div>
+              <div className="flex items-center gap-2 flex-wrap mt-0.5">
+                <span className="text-xs sm:text-sm font-bold text-royalBlue">
+                  Ask. Understand. Follow.
+                </span>
+                <span className="text-mutedGrey text-xs hidden sm:inline">•</span>
+                <span className="text-xs text-mutedGrey hidden sm:inline">
+                  Pakistan Statutory Law (MVO 1965 & NHSO 2000)
                 </span>
               </div>
-              <p className="text-xs text-slate-400 mt-0.5">
-                Pakistan Statutory Law Compliance Studio • Motor Vehicles Ordinance 1965
-              </p>
+              <div className="flex items-center gap-1.5 flex-wrap mt-1.5">
+                <span className="text-[10px] sm:text-[11px] font-semibold text-deepNavy bg-lightBlue px-2 py-0.5 rounded-md border border-subtleBorder">
+                  Whisper STT
+                </span>
+                <span className="text-[10px] sm:text-[11px] font-semibold text-deepNavy bg-lightBlue px-2 py-0.5 rounded-md border border-subtleBorder">
+                  Llama 3
+                </span>
+                <span className="text-[10px] sm:text-[11px] font-semibold text-deepNavy bg-lightBlue px-2 py-0.5 rounded-md border border-subtleBorder">
+                  Coqui TTS
+                </span>
+              </div>
             </div>
           </div>
 
           {/* Action Toolbar: Auto-Play, Clear Chat, Language Switcher */}
-          <div className="flex flex-wrap items-center gap-2 w-full md:w-auto justify-end">
+          <div className="flex flex-wrap items-center gap-2 w-full md:w-auto justify-start md:justify-end border-t md:border-t-0 pt-3 md:pt-0 border-cardBorder/70">
             
             {/* Auto-play voice toggle */}
             <button
               onClick={toggleAutoPlay}
               aria-label={`Toggle voice auto-play. Current: ${autoPlayVoice ? "Enabled" : "Disabled"}`}
-              className={`px-3 py-1.5 rounded-xl text-xs font-semibold border transition flex items-center space-x-1.5 rtl:space-x-reverse ${
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold border transition-all flex items-center gap-1.5 shadow-xs ${
                 autoPlayVoice
-                  ? "bg-cyan-950/80 text-cyan-neon border-cyan-neon/50 shadow-glow-cyan/20"
-                  : "bg-navy-900 text-slate-400 border-slate-700 hover:text-white"
+                  ? "bg-royalBlue text-white border-royalBlue hover:bg-royalBlueHover"
+                  : "bg-white text-bodyDark border-cardBorder hover:bg-[#F8FAFC]"
               }`}
               title="Toggle automatic speech playback on answer arrival"
             >
@@ -476,25 +490,25 @@ function AssistantContent() {
             <button
               onClick={() => setShowClearConfirm(true)}
               aria-label="Clear conversation history and start fresh"
-              className="px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white bg-navy-900 hover:bg-navy-850 border border-slate-700 transition flex items-center space-x-1 rtl:space-x-reverse"
+              className="px-3 py-1.5 rounded-xl text-xs font-bold text-bodyDark hover:text-deepNavy bg-white hover:bg-[#F8FAFC] border border-cardBorder transition-all flex items-center gap-1.5 shadow-xs"
               title="Start a new clean session"
             >
               <span>🧹</span>
-              <span className="hidden sm:inline">Clear Chat</span>
+              <span className="inline">Clear Chat</span>
             </button>
 
             {/* Language Selector Pills */}
-            <nav className="flex items-center space-x-1 rtl:space-x-reverse bg-navy-900 p-1 rounded-xl border border-slate-700" aria-label="Language Selector">
+            <nav className="flex items-center space-x-1 rtl:space-x-reverse bg-[#F1F5F9] p-1 rounded-xl border border-cardBorder shadow-xs" aria-label="Language Selector">
               {SUPPORTED_LANGUAGES.map((l) => (
                 <button
                   key={l.code}
                   onClick={() => changeLanguage(l.code)}
                   aria-pressed={language === l.code}
                   aria-label={`Switch language to ${l.name}`}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                  className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
                     language === l.code
-                      ? "bg-gradient-to-r from-royal-600 to-cyan-500 text-white shadow-glow-cyan"
-                      : "text-slate-400 hover:text-white"
+                      ? "bg-royalBlue text-white shadow-xs"
+                      : "text-bodyDark hover:text-deepNavy hover:bg-white/60"
                   }`}
                 >
                   <span>{l.nativeName}</span>
@@ -515,12 +529,12 @@ function AssistantContent() {
 
       {/* 3. MAIN CONVERSATION CONTAINER */}
       <section
-        className="glass-card rounded-2xl shadow-2xl h-[530px] flex flex-col overflow-hidden border border-slate-700/80 bg-navy-950/70"
+        className="bg-white rounded-2xl shadow-sm h-[540px] sm:h-[600px] flex flex-col overflow-hidden border border-cardBorder"
         aria-label="Conversation Chat Stream"
       >
         {/* Messages Stream */}
         <div
-          className="flex-grow p-4 sm:p-6 overflow-y-auto space-y-4 focus:outline-none"
+          className="flex-grow p-3 sm:p-5 overflow-y-auto space-y-4 focus:outline-none bg-[#F8FAFC]"
           role="log"
           aria-live="polite"
           tabIndex={0}
@@ -531,46 +545,64 @@ function AssistantContent() {
               className={`flex ${m.sender === "user" ? "justify-end" : "justify-start"} animate-in fade-in duration-200`}
             >
               <div
-                className={`max-w-xl rounded-2xl px-5 py-4 text-sm leading-relaxed shadow-lg relative ${
+                className={`max-w-[90%] sm:max-w-xl rounded-2xl px-4 sm:px-5 py-3.5 text-sm leading-relaxed shadow-xs relative ${
                   m.sender === "user"
-                    ? "bg-gradient-to-r from-royal-600 to-blue-600 text-white rounded-br-none shadow-glow-blue/30"
+                    ? "bg-royalBlue text-white rounded-br-xs"
                     : m.isError
-                    ? "bg-rose-950/90 text-rose-200 border border-rose-700 rounded-bl-none"
-                    : "bg-navy-850/95 text-slate-200 rounded-bl-none border border-slate-700/80 shadow-md"
+                    ? "bg-[#FEF2F2] text-[#991B1B] border border-[#FCA5A5] rounded-bl-xs"
+                    : "bg-white text-bodyDark rounded-bl-xs border border-cardBorder"
                 } ${m.language === "ur" || language === "ur" ? "font-urdu" : ""} ${
                   m.language === "ps" || language === "ps" ? "font-pashto" : ""
                 }`}
               >
                 {/* Message Header Bar */}
-                <div className="flex items-center justify-between gap-2 mb-1.5 pb-1 border-b border-white/10 text-xs">
-                  <div className="flex items-center space-x-2 rtl:space-x-reverse">
-                    <span className="text-[10px] uppercase font-bold tracking-wider text-cyan-neon">
+                <div
+                  className={`flex items-center justify-between gap-2 mb-2 pb-1.5 border-b text-xs ${
+                    m.sender === "user" ? "border-white/20" : "border-cardBorder"
+                  }`}
+                >
+                  <div className="flex items-center space-x-2 rtl:space-x-reverse flex-wrap gap-y-1">
+                    <span
+                      className={`text-[10px] uppercase font-bold tracking-wider ${
+                        m.sender === "user" ? "text-white/90" : "text-deepNavy"
+                      }`}
+                    >
                       {m.sender === "user" ? "You" : "AI Traffic Assistant"}
                     </span>
 
                     {/* Spoken Query Tag */}
                     {m.isSpoken && (
-                      <span className="text-[9px] bg-royal-700/80 text-cyan-200 px-1.5 py-0.2 rounded font-mono">
-                        🎙️ Spoken Voice
+                      <span
+                        className={`text-[9px] px-1.5 py-0.5 rounded font-mono font-medium ${
+                          m.sender === "user"
+                            ? "bg-white/20 text-white"
+                            : "bg-lightBlue text-deepNavy border border-subtleBorder"
+                        }`}
+                      >
+                        🎙️ Voice
                       </span>
                     )}
 
                     {/* Legal Grounding Status Badge */}
                     {m.status === "VERIFIED" && (
-                      <span className="text-[9px] bg-emerald-950 text-emerald-300 border border-emerald-600/70 px-2 py-0.2 rounded font-mono flex items-center space-x-1">
+                      <span className="text-[9px] bg-lightBlue text-deepNavy border border-subtleBorder px-2 py-0.5 rounded-full font-semibold flex items-center space-x-1">
                         <span>✓</span>
                         <span>Verified Statute</span>
                       </span>
                     )}
                     {m.status === "UNAVAILABLE" && (
-                      <span className="text-[9px] bg-amber-950 text-amber-300 border border-amber-600/70 px-2 py-0.2 rounded font-mono flex items-center space-x-1">
+                      <span className="text-[9px] bg-[#FEF3C7] text-[#92400E] border border-[#FCD34D] px-2 py-0.5 rounded-full font-medium flex items-center space-x-1">
                         <span>ℹ️</span>
                         <span>Statute Unavailable</span>
                       </span>
                     )}
                   </div>
 
-                  <div className="flex items-center space-x-2 rtl:space-x-reverse text-[10px] text-slate-400">
+                  <div
+                    className={`flex items-center space-x-2 rtl:space-x-reverse text-[10px] ${
+                      m.sender === "user" ? "text-white/80" : "text-mutedGrey"
+                    }`}
+                  >
                     {/* Timestamp */}
                     <span>{m.timestamp}</span>
 
@@ -579,7 +611,7 @@ function AssistantContent() {
                       <button
                         onClick={() => handleCopy(m.text, idx)}
                         aria-label="Copy assistant answer text"
-                        className="hover:text-white transition px-1 py-0.5 rounded bg-navy-900/60 border border-slate-700 text-[10px]"
+                        className="hover:text-deepNavy transition px-2 py-0.5 rounded bg-white border border-cardBorder text-[10px] font-semibold text-bodyDark shadow-2xs hover:bg-[#F1F5F9]"
                         title="Copy text to clipboard"
                       >
                         {copiedIndex === idx ? "✓ Copied" : "📋 Copy"}
@@ -589,23 +621,25 @@ function AssistantContent() {
                 </div>
 
                 {/* Message Text Content */}
-                <p className="whitespace-pre-line text-xs sm:text-sm font-medium leading-relaxed">
+                <p className={`whitespace-pre-line text-xs sm:text-sm font-normal leading-relaxed ${
+                  m.sender === "user" ? "text-white" : "text-bodyDark"
+                }`}>
                   {m.text}
                 </p>
 
                 {/* Whisper STT Transcription Metadata (when voice was transcribed) */}
                 {m.transcriptionMeta && (
-                  <div className="mt-2.5 pt-2 border-t border-slate-700/50 flex flex-wrap items-center gap-2 text-[10px]">
-                    <span className="bg-cyan-950 text-cyan-300 px-2 py-0.5 rounded border border-cyan-800 font-mono">
+                  <div className="mt-2.5 pt-2 border-t border-cardBorder flex flex-wrap items-center gap-2 text-[10px]">
+                    <span className="bg-lightBlue text-deepNavy px-2 py-0.5 rounded border border-subtleBorder font-mono font-medium">
                       🎯 Whisper STT: {Math.round(m.transcriptionMeta.confidence * 100)}% Confidence
                     </span>
                     {m.transcriptionMeta.duration_seconds && (
-                      <span className="text-slate-300 font-mono">
+                      <span className="text-mutedGrey font-mono">
                         ⏱️ Audio Length: {m.transcriptionMeta.duration_seconds}s
                       </span>
                     )}
                     {m.transcriptionMeta.is_uncertain && (
-                      <span className="text-amber-400 font-bold block w-full mt-1 bg-amber-950/50 p-1.5 rounded border border-amber-700/50">
+                      <span className="text-[#92400E] font-medium block w-full mt-1 bg-[#FEF3C7] p-2 rounded-lg border border-[#FCD34D]">
                         ⚠️ {m.transcriptionMeta.uncertainty_warning || "Low audio clarity detected. Please verify recognized text."}
                       </span>
                     )}
@@ -633,21 +667,21 @@ function AssistantContent() {
 
                 {/* Grounded Statutory Citations */}
                 {m.ragSources && m.ragSources.length > 0 && (
-                  <div className="mt-3 pt-2.5 border-t border-slate-700/60 text-[11px] text-sky-300 space-y-1.5">
-                    <span className="font-bold text-[10px] uppercase tracking-wider text-slate-400 block">
+                  <div className="mt-3 pt-2.5 border-t border-cardBorder text-xs text-bodyDark space-y-1.5">
+                    <span className="font-bold text-[10px] uppercase tracking-wider text-mutedGrey block">
                       Statutory Reference:
                     </span>
                     {m.ragSources.map((rule, rIdx) => (
-                      <div key={rIdx} className="bg-navy-950/80 p-2.5 rounded-xl border border-slate-700/60">
-                        <div className="flex items-center justify-between">
-                          <span className="font-bold text-white text-xs">{rule.section}</span>
+                      <div key={rIdx} className="bg-lightBlue/60 p-2.5 sm:p-3 rounded-xl border border-subtleBorder">
+                        <div className="flex items-center justify-between gap-2 flex-wrap">
+                          <span className="font-bold text-deepNavy text-xs">{rule.section}</span>
                           {rule.penalty_amount > 0 && (
-                            <span className="text-cyan-neon font-mono font-bold text-xs bg-cyan-950 px-2 py-0.5 rounded border border-cyan-800">
+                            <span className="text-deepNavy font-mono font-bold text-xs bg-white px-2 py-0.5 rounded border border-subtleBorder shadow-2xs">
                               Rs. {rule.penalty_amount.toLocaleString()}
                             </span>
                           )}
                         </div>
-                        <p className="text-[11px] text-slate-300 mt-1 leading-normal">{rule.title || rule.description}</p>
+                        <p className="text-[11px] text-bodyDark mt-1 leading-normal">{rule.title || rule.description}</p>
                       </div>
                     ))}
                   </div>
@@ -655,16 +689,20 @@ function AssistantContent() {
 
                 {/* Challan Action Data Cards */}
                 {m.actionData && m.actionData.length > 0 && (
-                  <div className="mt-3 pt-3 border-t border-slate-700/60 space-y-2">
+                  <div className="mt-3 pt-2.5 border-t border-cardBorder space-y-2">
                     {m.actionData.map((item, i) => (
-                      <div key={i} className="bg-navy-950 p-3 rounded-xl border border-slate-700 text-xs">
-                        <div className="flex justify-between font-bold text-white">
+                      <div key={i} className="bg-white p-3 rounded-xl border border-cardBorder text-xs shadow-2xs">
+                        <div className="flex justify-between font-bold text-deepNavy">
                           <span>Challan No: {item.challan_no}</span>
-                          <span className="text-cyan-neon font-mono text-sm">Rs. {item.amount}</span>
+                          <span className="text-royalBlue font-mono text-sm">Rs. {item.amount}</span>
                         </div>
-                        <div className="text-slate-400 text-[11px] mt-1 flex justify-between">
+                        <div className="text-mutedGrey text-[11px] mt-1 flex justify-between items-center">
                           <span>{item.location} • {item.violation}</span>
-                          <span className={`font-bold uppercase ${item.status === "PAID" ? "text-emerald-400" : "text-rose-400"}`}>
+                          <span className={`font-bold uppercase text-[10px] px-2 py-0.5 rounded ${
+                            item.status === "PAID"
+                              ? "text-emerald-700 bg-emerald-50 border border-emerald-200"
+                              : "text-rose-700 bg-rose-50 border border-rose-200"
+                          }`}>
                             {item.status}
                           </span>
                         </div>
@@ -679,18 +717,18 @@ function AssistantContent() {
           {/* Active Processing Skeleton */}
           {loading && (
             <div className="flex justify-start animate-in fade-in">
-              <div className="bg-navy-850/95 border border-cyan-neon/50 rounded-2xl rounded-bl-none p-4 text-xs text-cyan-neon shadow-glow-cyan/20 max-w-md w-full">
+              <div className="bg-white border border-royalBlue/40 rounded-2xl rounded-bl-xs p-4 text-xs text-deepNavy shadow-sm max-w-md w-full">
                 <div className="flex items-center space-x-2.5 rtl:space-x-reverse mb-2">
                   <span className="animate-spin text-base">⏳</span>
-                  <span className="font-bold text-white">
+                  <span className="font-bold text-deepNavy">
                     {statusMessage || "Processing inquiry with Grounded Llama 3..."}
                   </span>
                 </div>
                 {/* Shimmer loading bar */}
-                <div className="w-full bg-navy-950 h-1.5 rounded-full overflow-hidden">
-                  <div className="bg-gradient-to-r from-royal-600 via-cyan-neon to-royal-600 h-full w-2/3 animate-pulse rounded-full" />
+                <div className="w-full bg-[#E2E8F0] h-1.5 rounded-full overflow-hidden">
+                  <div className="bg-royalBlue h-full w-2/3 animate-pulse rounded-full" />
                 </div>
-                <div className="text-[10px] text-slate-400 mt-2 flex justify-between">
+                <div className="text-[10px] text-mutedGrey mt-2 flex justify-between font-medium">
                   <span>Step {pipelineStep || 3} of 5</span>
                   <span>Motor Vehicles Ordinance 1965 Grounding</span>
                 </div>
@@ -701,11 +739,11 @@ function AssistantContent() {
           {/* Failed Query Retry Banner */}
           {lastFailedQuery && !loading && (
             <div className="flex justify-center my-2">
-              <div className="bg-rose-950/80 border border-rose-700/80 p-2.5 rounded-xl text-xs text-rose-200 flex items-center space-x-3 rtl:space-x-reverse">
+              <div className="bg-[#FEF2F2] border border-[#FCA5A5] p-2.5 rounded-xl text-xs text-[#991B1B] flex items-center space-x-3 rtl:space-x-reverse shadow-xs">
                 <span>⚠️ Failed to get answer for previous inquiry.</span>
                 <button
                   onClick={() => handleSend(lastFailedQuery)}
-                  className="bg-rose-600 hover:bg-rose-500 text-white font-bold px-3 py-1 rounded-lg transition"
+                  className="bg-[#DC2626] hover:bg-[#B91C1C] text-white font-bold px-3 py-1 rounded-lg transition"
                 >
                   ↺ Retry
                 </button>
@@ -717,14 +755,14 @@ function AssistantContent() {
         </div>
 
         {/* 4. SUGGESTION QUICK CHIPS */}
-        <div className="px-4 py-2 bg-navy-950/90 border-t border-slate-800 flex items-center gap-2 overflow-x-auto text-[11px] no-scrollbar">
-          <span className="text-slate-400 font-semibold whitespace-nowrap">Suggested:</span>
+        <div className="px-3 sm:px-4 py-2.5 bg-white border-t border-cardBorder flex items-center gap-2 overflow-x-auto text-xs no-scrollbar">
+          <span className="text-deepNavy font-bold whitespace-nowrap text-xs">Suggested:</span>
           {quickChips.map((chip, i) => (
             <button
               key={i}
               onClick={() => handleSend(chip.query)}
               disabled={loading || isRecording}
-              className="bg-navy-850 hover:bg-navy-800 disabled:opacity-40 text-slate-300 hover:text-white px-3 py-1 rounded-full border border-slate-700/80 whitespace-nowrap transition-all hover:border-cyan-neon/50"
+              className="bg-[#F8FAFC] hover:bg-lightBlue disabled:opacity-40 text-bodyDark hover:text-royalBlue px-3 py-1 rounded-full border border-cardBorder hover:border-subtleBorder whitespace-nowrap transition-all font-medium text-xs shadow-2xs shrink-0"
             >
               {chip.label}
             </button>
@@ -734,33 +772,33 @@ function AssistantContent() {
         {/* 5. LIVE RECORDING ANIMATION & AUDIO INPUT STATUS */}
         {isRecording && (
           <div
-            className="bg-rose-950/95 border-t border-rose-600 p-3.5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-rose-200 animate-in fade-in duration-150"
+            className="bg-[#FEF2F2] border-t border-[#FCA5A5] p-3 sm:p-3.5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#991B1B] animate-in fade-in duration-150"
             role="status"
             aria-live="assertive"
           >
             {/* Live Waveform Equalizer & Duration */}
-            <div className="flex items-center space-x-3 rtl:space-x-reverse">
-              <div className="relative flex items-center justify-center">
-                <span className="w-3.5 h-3.5 rounded-full bg-rose-500 animate-ping absolute" />
-                <span className="w-2.5 h-2.5 rounded-full bg-rose-500 relative" />
+            <div className="flex items-center space-x-3 rtl:space-x-reverse w-full sm:w-auto">
+              <div className="relative flex items-center justify-center shrink-0">
+                <span className="w-3.5 h-3.5 rounded-full bg-[#EF4444] animate-ping absolute" />
+                <span className="w-2.5 h-2.5 rounded-full bg-[#EF4444] relative" />
               </div>
 
               <div>
-                <span className="font-bold text-white text-xs">
+                <span className="font-bold text-[#991B1B] text-xs">
                   Recording Speech... {Math.floor(recordingDuration / 60)}:
                   {(recordingDuration % 60).toString().padStart(2, "0")}
                 </span>
-                <p className="text-[10px] text-rose-300">
+                <p className="text-[10px] text-[#B91C1C]">
                   Speak into microphone in {language === "ur" ? "Urdu" : language === "ps" ? "Pashto" : "English"}
                 </p>
               </div>
 
               {/* Dynamic Equalizer Bars */}
-              <div className="flex items-end space-x-1 h-6 px-2 bg-rose-900/40 rounded-lg py-1">
+              <div className="flex items-end space-x-1 h-6 px-2 bg-[#FEE2E2] rounded-lg py-1 ml-auto sm:ml-2">
                 {[15, 45, 80, 100, 70, 90, 50, 30].map((h, i) => (
                   <div
                     key={i}
-                    className="w-1 bg-rose-400 rounded-full transition-all duration-75"
+                    className="w-1 bg-[#EF4444] rounded-full transition-all duration-75"
                     style={{
                       height: `${Math.max(4, Math.round(((volumeLevel + 10) / 110) * h * 0.25))}px`,
                     }}
@@ -770,10 +808,10 @@ function AssistantContent() {
             </div>
 
             {/* Recording Controls: Done vs Cancel */}
-            <div className="flex items-center space-x-2 rtl:space-x-reverse">
+            <div className="flex items-center space-x-2 rtl:space-x-reverse w-full sm:w-auto justify-end">
               <button
                 onClick={resetRecording}
-                className="px-3 py-1.5 rounded-xl bg-rose-900/60 hover:bg-rose-800 text-rose-200 border border-rose-700 text-xs transition"
+                className="px-3 py-1.5 rounded-xl bg-white hover:bg-[#FEE2E2] text-[#991B1B] border border-[#FCA5A5] text-xs font-semibold transition"
                 title="Discard recording without submitting"
               >
                 ✕ Cancel
@@ -781,9 +819,9 @@ function AssistantContent() {
 
               <button
                 onClick={handleStopRecordingAndProcess}
-                className="bg-gradient-to-r from-rose-600 to-red-500 hover:from-rose-500 hover:to-red-400 text-white font-bold px-4 py-1.5 rounded-xl shadow-lg transition text-xs flex items-center space-x-1.5 shadow-rose-900/50"
+                className="bg-[#DC2626] hover:bg-[#B91C1C] text-white font-bold px-4 py-1.5 rounded-xl shadow-sm transition text-xs flex items-center space-x-1.5"
               >
-                <span>⏹️ Done (Transcribe with Whisper)</span>
+                <span>⏹️ Done (Transcribe)</span>
               </button>
             </div>
           </div>
@@ -791,14 +829,14 @@ function AssistantContent() {
 
         {/* Microphone Error Notification */}
         {micError && (
-          <div className="bg-rose-950/95 border-t border-rose-700 p-3 text-xs text-rose-200 flex items-center justify-between">
+          <div className="bg-[#FEF2F2] border-t border-[#FCA5A5] p-3 text-xs text-[#991B1B] flex items-center justify-between">
             <div className="flex items-center space-x-2 rtl:space-x-reverse">
               <span>⚠️</span>
               <span>{micError}</span>
             </div>
             <button
               onClick={resetRecording}
-              className="text-white underline font-bold ml-2 text-xs hover:text-rose-100"
+              className="text-[#991B1B] underline font-bold ml-2 text-xs hover:opacity-80"
             >
               Dismiss
             </button>
@@ -806,7 +844,7 @@ function AssistantContent() {
         )}
 
         {/* 6. INPUT CONTROLS: MIC BUTTON, AUDIO UPLOAD, TEXT INPUT, SEND BUTTON */}
-        <div className="p-3 sm:p-4 bg-navy-900/95 border-t border-slate-800">
+        <div className="p-3 sm:p-4 bg-white border-t border-cardBorder">
           <div className="flex items-center gap-2">
             
             {/* A. Live Microphone Button */}
@@ -815,16 +853,16 @@ function AssistantContent() {
               disabled={loading}
               aria-label={isRecording ? "Stop voice recording and transcribe" : "Click to speak into microphone"}
               aria-pressed={isRecording}
-              className={`p-3 rounded-2xl text-white transition-all shadow-lg flex-shrink-0 relative group focus:outline-none focus:ring-2 focus:ring-cyan-neon ${
+              className={`p-3 rounded-xl text-white transition-all shadow-sm flex-shrink-0 relative group focus:outline-none focus:ring-2 focus:ring-royalBlue ${
                 isRecording
-                  ? "bg-rose-600 hover:bg-rose-700 animate-pulse-ring shadow-rose-600/50"
-                  : "bg-gradient-to-r from-royal-600 to-blue-600 hover:from-royal-500 hover:to-blue-500 shadow-glow-cyan"
+                  ? "bg-[#DC2626] hover:bg-[#B91C1C] animate-pulse"
+                  : "bg-royalBlue hover:bg-royalBlueHover"
               }`}
               title={isRecording ? "Stop recording & transcribe with Whisper" : "Click to speak your question"}
             >
               <span className="text-lg">{isRecording ? "⏹️" : "🎙️"}</span>
               {!isRecording && (
-                <span className="absolute -top-8 left-1/2 -translate-x-1/2 bg-navy-950 text-cyan-neon text-[10px] px-2 py-0.5 rounded shadow pointer-events-none opacity-0 group-hover:opacity-100 transition whitespace-nowrap border border-slate-700">
+                <span className="absolute -top-8 left-1/2 -translate-x-1/2 bg-deepNavy text-white text-[10px] px-2 py-0.5 rounded shadow pointer-events-none opacity-0 group-hover:opacity-100 transition whitespace-nowrap">
                   Speak Now
                 </span>
               )}
@@ -843,7 +881,7 @@ function AssistantContent() {
               onClick={() => fileInputRef.current?.click()}
               disabled={loading || isRecording}
               aria-label="Upload audio recording file"
-              className="p-3 rounded-2xl bg-navy-950 hover:bg-navy-850 text-slate-300 hover:text-cyan-neon border border-slate-700/80 transition shadow-sm flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-cyan-neon"
+              className="p-3 rounded-xl bg-white hover:bg-lightBlue text-bodyDark hover:text-royalBlue border border-cardBorder transition-all shadow-2xs flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-royalBlue"
               title="Upload Audio File (WAV, MP3, WebM, M4A up to 25MB)"
             >
               <span className="text-lg">📁</span>
@@ -858,7 +896,7 @@ function AssistantContent() {
                 onChange={(e) => setInputQuery(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && handleSend()}
                 disabled={loading || isRecording}
-                aria-label="Ask your traffic law or challan question"
+                aria-label="Ask about your traffic challan or traffic rules..."
                 placeholder={
                   isRecording
                     ? "Listening... Speak clearly into your microphone..."
@@ -866,14 +904,14 @@ function AssistantContent() {
                     ? "مائیک پر بولیں، فائل اپلوڈ کریں، یا ٹریفک قوانین کے متعلق سوال لکھیں..."
                     : language === "ps"
                     ? "په مایک کې خبرې وکړئ یا د ټرافیکي قوانینو په اړه پوښتنه ولیکئ..."
-                    : "Speak into mic, upload audio, or ask about traffic rules & citations..."
+                    : "Ask about your traffic challan or traffic rules..."
                 }
-                className="w-full px-4 py-3 rounded-xl border border-slate-700/80 bg-navy-950 text-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-cyan-neon placeholder-slate-500 pr-9"
+                className="w-full px-3.5 sm:px-4 py-3 rounded-xl border border-cardBorder bg-[#F8FAFC] text-deepNavy text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-royalBlue focus:bg-white placeholder-mutedGrey pr-8 font-medium transition-all"
               />
               {inputQuery && (
                 <button
                   onClick={() => setInputQuery("")}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-xs"
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-mutedGrey hover:text-deepNavy text-xs p-1"
                   title="Clear text"
                 >
                   ✕
@@ -886,24 +924,24 @@ function AssistantContent() {
               onClick={() => handleSend()}
               disabled={loading || isRecording || !inputQuery.trim()}
               aria-label="Send query"
-              className="bg-gradient-to-r from-royal-600 to-cyan-500 hover:from-royal-500 hover:to-cyan-400 disabled:opacity-40 text-white px-5 sm:px-6 py-3 rounded-xl text-xs sm:text-sm font-bold shadow-glow-cyan transition flex-shrink-0 flex items-center space-x-1.5 focus:outline-none focus:ring-2 focus:ring-cyan-neon"
+              className="bg-royalBlue hover:bg-royalBlueHover disabled:opacity-40 text-white px-4 sm:px-6 py-3 rounded-xl text-xs sm:text-sm font-bold shadow-sm transition flex-shrink-0 flex items-center space-x-1.5 focus:outline-none focus:ring-2 focus:ring-royalBlue"
             >
               <span>{loading ? "..." : "Ask"}</span>
-              {!loading && <span>↵</span>}
+              {!loading && <span className="hidden sm:inline">↵</span>}
             </button>
           </div>
 
           {/* Footer Audio Status Bar */}
-          <div className="flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-500 mt-2 px-1 gap-1">
-            <span className="flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-              <span>Grounded in Pakistan Motor Vehicles Ordinance 1965</span>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between text-[11px] text-mutedGrey mt-2 px-1 gap-1">
+            <span className="flex items-center gap-1.5 font-medium">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 shrink-0" />
+              <span>Grounded in Pakistan Motor Vehicles Ordinance 1965 & NHSO 2000</span>
             </span>
-            <span className="font-mono text-[10px]">
+            <span className="font-mono text-[10px] text-bodyDark font-medium">
               {isRecording ? (
-                <span className="text-rose-400 font-bold animate-pulse">🔴 Capturing Microphone Speech</span>
+                <span className="text-[#DC2626] font-bold animate-pulse">🔴 Capturing Microphone Speech</span>
               ) : activeUploadFile ? (
-                <span className="text-cyan-neon">📂 File: {activeUploadFile}</span>
+                <span className="text-royalBlue font-bold">📂 File: {activeUploadFile}</span>
               ) : (
                 "⚪ Audio & Text Ready"
               )}
@@ -914,23 +952,23 @@ function AssistantContent() {
 
       {/* 7. CLEAR CONVERSATION CONFIRMATION MODAL */}
       {showClearConfirm && (
-        <div className="fixed inset-0 bg-deepNavy/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-navy-900 border border-slate-700 rounded-2xl max-w-sm w-full p-6 text-center shadow-2xl">
+        <div className="fixed inset-0 bg-deepNavy/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+          <div className="bg-white border border-cardBorder rounded-2xl max-w-sm w-full p-6 text-center shadow-2xl animate-in zoom-in-95">
             <div className="text-3xl mb-3">🧹</div>
-            <h3 className="text-base font-bold text-white mb-2">Clear Conversation?</h3>
-            <p className="text-xs text-slate-300 mb-5 leading-relaxed">
+            <h3 className="text-base font-bold text-deepNavy mb-2">Clear Conversation?</h3>
+            <p className="text-xs text-bodyDark mb-5 leading-relaxed">
               This will reset your consultation history and start a fresh session with the AI Traffic Assistant.
             </p>
             <div className="flex justify-center space-x-3 rtl:space-x-reverse">
               <button
                 onClick={() => setShowClearConfirm(false)}
-                className="px-4 py-2 rounded-xl bg-navy-950 text-slate-300 hover:text-white border border-slate-700 text-xs font-semibold"
+                className="px-4 py-2 rounded-xl bg-[#F1F5F9] text-bodyDark hover:text-deepNavy border border-cardBorder text-xs font-semibold transition"
               >
                 Cancel
               </button>
               <button
                 onClick={confirmClearSession}
-                className="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold shadow-lg"
+                className="px-4 py-2 rounded-xl bg-[#DC2626] hover:bg-[#B91C1C] text-white text-xs font-bold shadow-sm transition"
               >
                 Yes, Clear Chat
               </button>

@@ -8,11 +8,15 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        deepNavy: '#061D38',
+        deepNavy: '#071B35',
         darkNavy: '#092B50',
-        royalBlue: '#0875DF',
+        bodyDark: '#26364A',
+        royalBlue: '#1479E8',
+        royalBlueHover: '#1067C7',
         brightBlue: '#1685F5',
-        lightBlue: '#DCEBFF',
+        lightBlue: '#EAF2FC',
+        cardBorder: '#E2E8F0',
+        subtleBorder: '#D1E3F8',
         mainBg: '#F7F9FC',
         mainText: '#10233F',
         mutedGrey: '#64748B',
