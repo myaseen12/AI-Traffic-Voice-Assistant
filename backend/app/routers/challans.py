@@ -122,11 +122,14 @@ def decode_challan_qr(
         validated = service.validate_qr_reference(qr_data, ip_address=client_ip)
         return validated.challan
     except HTTPException:
-        # Fallback to direct reference search if raw ticket number was encoded
-        challan = service.get_by_challan_no(qr_data)
-        if challan:
-            return challan
-        raise
+        # Fallback: search by either Challan Number or Vehicle Plate
+        matches = service.search(qr_data)
+        if matches and len(matches) > 0:
+            return matches[0]
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"No verified citation record found for reference '{qr_data}'."
+        )
 
 # -------------------------------------------------------------
 # 5. QR Reference Management (Admin / Officer Only)

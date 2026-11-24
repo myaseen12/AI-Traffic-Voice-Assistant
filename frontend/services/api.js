@@ -56,12 +56,15 @@ export async function fetchApi(endpoint, options = {}) {
     });
   } catch (netErr) {
     const isLocal = baseUrl.includes("localhost") || baseUrl.includes("127.0.0.1");
-    const tip = isLocal
+    const connectionTip = isLocal
       ? "Please ensure your local FastAPI backend daemon is running on port 8000."
-      : "The traffic verification service is currently undergoing routine synchronization or experiencing high network traffic. Please check your internet connection and try again.";
-    throw new Error(
-      `Unable to connect to Central Traffic Server (${baseUrl}). ${tip}`
+      : "The backend server is unreachable or CORS connection was blocked. The backend service may be offline, waking from sleep, or restarting.";
+    const err = new Error(
+      `Unable to connect to Central Traffic Server (${baseUrl}). ${connectionTip}`
     );
+    err.isNetworkError = true;
+    err.status = 0;
+    throw err;
   }
 
   if (!response.ok) {
@@ -85,7 +88,26 @@ export async function fetchApi(endpoint, options = {}) {
         .join("; ");
     }
 
-    const finalMessage = message || `HTTP Error ${response.status}: ${response.statusText}`;
+    // Specific HTTP status messaging according to statutory system specs
+    if (!message) {
+      if (response.status === 404) {
+        message = "Citation record or endpoint not found in the verified registry (HTTP 404).";
+      } else if (response.status === 401) {
+        message = "Authentication required or session expired (HTTP 401). Please log in again.";
+      } else if (response.status === 403) {
+        message = "Access forbidden (HTTP 403). You do not have permission to access this citation record.";
+      } else if (response.status === 500) {
+        message = "Central Traffic Server Internal Error (HTTP 500). The backend service encountered an internal exception.";
+      } else if (response.status === 502 || response.status === 503 || response.status === 504) {
+        message = `Traffic service temporarily unavailable (HTTP ${response.status}). The server is starting up or overloaded.`;
+      } else {
+        message = `HTTP Error ${response.status}: ${response.statusText}`;
+      }
+    }
+
+    const err = new Error(message);
+    err.status = response.status;
+    err.errorData = errorData;
 
     // Handle token invalidation / revocation
     if (response.status === 401 && typeof window !== "undefined") {
@@ -95,9 +117,6 @@ export async function fetchApi(endpoint, options = {}) {
       }
     }
 
-    const err = new Error(finalMessage);
-    err.status = response.status;
-    err.data = errorData;
     throw err;
   }
 
