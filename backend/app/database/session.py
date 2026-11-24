@@ -9,16 +9,7 @@ if database_url.startswith("postgres://"):
     database_url = database_url.replace("postgres://", "postgresql://", 1)
 
 # In serverless environments (Vercel, AWS Lambda), filesystem is read-only except /tmp
-is_serverless = bool(
-    os.environ.get("VERCEL")
-    or os.environ.get("VERCEL_ENV")
-    or os.environ.get("VERCEL_REGION")
-    or os.environ.get("AWS_LAMBDA_FUNCTION_NAME")
-    or os.environ.get("LAMBDA_TASK_ROOT")
-    or os.environ.get("AWS_REGION")
-    or not os.access(".", os.W_OK)
-)
-if database_url.startswith("sqlite") and is_serverless:
+if database_url.startswith("sqlite") and (os.environ.get("VERCEL") or os.environ.get("AWS_LAMBDA_FUNCTION_NAME")):
     database_url = "sqlite:////tmp/traffic_assistant.db"
 
 engine_kwargs = {
