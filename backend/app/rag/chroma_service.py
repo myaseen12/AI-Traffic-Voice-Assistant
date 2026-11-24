@@ -8,9 +8,22 @@ from datetime import datetime, timezone
 from typing import List, Dict, Any, Optional, Tuple
 import numpy as np
 
-import chromadb
-from chromadb.api.rust import RustBindingsAPI
-from chromadb.api.types import QueryResult, GetResult, DeleteResult, Documents, EmbeddingFunction, Embeddings
+try:
+    import chromadb
+    from chromadb.api.types import QueryResult, GetResult, DeleteResult, Documents, EmbeddingFunction, Embeddings
+except ImportError:
+    chromadb = None
+    QueryResult = Any
+    GetResult = Any
+    DeleteResult = Any
+    Documents = Any
+    EmbeddingFunction = object
+    Embeddings = Any
+
+try:
+    from chromadb.api.rust import RustBindingsAPI
+except (ImportError, ModuleNotFoundError, AttributeError):
+    RustBindingsAPI = None
 
 from app.rag.verified_rules import VERIFIED_TRAFFIC_RULES
 
@@ -320,14 +333,18 @@ def _py_query(self, collection_id, query_embeddings, ids=None, n_results=10, whe
         data=None
     )
 
-# Apply safe SQLite vector methods to RustBindingsAPI
-RustBindingsAPI._add = _py_add
-RustBindingsAPI._upsert = _py_upsert
-RustBindingsAPI._update = _py_update
-RustBindingsAPI._count = _py_count
-RustBindingsAPI._get = _py_get
-RustBindingsAPI._delete = _py_delete
-RustBindingsAPI._query = _py_query
+# Apply safe SQLite vector methods to RustBindingsAPI if available
+if RustBindingsAPI is not None:
+    try:
+        RustBindingsAPI._add = _py_add
+        RustBindingsAPI._upsert = _py_upsert
+        RustBindingsAPI._update = _py_update
+        RustBindingsAPI._count = _py_count
+        RustBindingsAPI._get = _py_get
+        RustBindingsAPI._delete = _py_delete
+        RustBindingsAPI._query = _py_query
+    except Exception as e:
+        logger.warning(f"Could not apply patch to RustBindingsAPI: {e}")
 
 
 # ---------------------------------------------------------------------------

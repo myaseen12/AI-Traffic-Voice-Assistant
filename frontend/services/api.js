@@ -10,14 +10,16 @@ export function getBaseUrl() {
     const hostname = window.location.hostname;
     const isLocal = hostname === "localhost" || hostname === "127.0.0.1";
     if (!isLocal) {
-      if (
+      if (process.env.NEXT_PUBLIC_RENDER_API_URL) {
+        url = process.env.NEXT_PUBLIC_RENDER_API_URL;
+      } else if (
         process.env.NEXT_PUBLIC_API_URL &&
         !process.env.NEXT_PUBLIC_API_URL.includes("localhost") &&
         !process.env.NEXT_PUBLIC_API_URL.includes("127.0.0.1")
       ) {
         url = process.env.NEXT_PUBLIC_API_URL;
       } else {
-        url = "https://traffic-voice-api.onrender.com/api/v1";
+        url = "https://traffic-voice-api.vercel.app/api/v1";
       }
     }
   } else if (process.env.NEXT_PUBLIC_API_URL) {
