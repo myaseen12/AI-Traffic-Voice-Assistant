@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: traffic-voice-api
+    runtime: python
+    plan: free
+    region: oregon
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: APP_ENV
+        value: production
+      - key: DEBUG
+        value: "false"
+      - key: CORS_ORIGINS
+        value: https://traffic-voice-assistant.vercel.app,http://localhost:3000
+      - key: OTP_MODE
+        value: development
+      - key: SECRET_KEY
+        generateValue: true

@@ -415,7 +415,15 @@ class ChromaRAGService:
 
     def __init__(self, persist_directory: str = None):
         if persist_directory is None:
-            if os.environ.get("VERCEL") or os.environ.get("AWS_LAMBDA_FUNCTION_NAME"):
+            is_serverless = bool(
+                os.environ.get("VERCEL")
+                or os.environ.get("VERCEL_ENV")
+                or os.environ.get("VERCEL_REGION")
+                or os.environ.get("AWS_LAMBDA_FUNCTION_NAME")
+                or os.environ.get("LAMBDA_TASK_ROOT")
+                or not os.access(".", os.W_OK)
+            )
+            if is_serverless:
                 persist_directory = "/tmp/chroma_db"
             else:
                 persist_directory = "./data/chroma_db"
