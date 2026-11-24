@@ -5,6 +5,7 @@
  * an explicit remote NEXT_PUBLIC_API_URL is configured, preventing unintended localhost calls.
  */
 export function getBaseUrl() {
+  let url = "http://localhost:8000/api/v1";
   if (typeof window !== "undefined") {
     const hostname = window.location.hostname;
     const isLocal = hostname === "localhost" || hostname === "127.0.0.1";
@@ -14,12 +15,21 @@ export function getBaseUrl() {
         !process.env.NEXT_PUBLIC_API_URL.includes("localhost") &&
         !process.env.NEXT_PUBLIC_API_URL.includes("127.0.0.1")
       ) {
-        return process.env.NEXT_PUBLIC_API_URL;
+        url = process.env.NEXT_PUBLIC_API_URL;
+      } else {
+        url = "https://traffic-voice-api.onrender.com/api/v1";
       }
-      return "https://traffic-voice-api.vercel.app/api/v1";
     }
+  } else if (process.env.NEXT_PUBLIC_API_URL) {
+    url = process.env.NEXT_PUBLIC_API_URL;
   }
-  return process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api/v1";
+
+  // Sanitize: remove trailing slash and ensure /api/v1 suffix without duplication
+  url = url.replace(/\/+$/, "");
+  if (!url.endsWith("/api/v1")) {
+    url = `${url}/api/v1`;
+  }
+  return url;
 }
 
 /**
